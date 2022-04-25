@@ -73,14 +73,28 @@ class LoadData {
     }
 
     @Bean
-    CommandLineRunner testDulces ( DulceRepository repoD, CompraRepository repoC, ClienteRepository repoCli){
+    CommandLineRunner testDulces ( DulceRepository repoD){
         return args -> {
             System.out.println("Dulce repository\n");
 
             Dulce d = repoD.getById(1L);
+        };
+    }
+
+    @Bean
+    CommandLineRunner testCompra ( CompraRepository repoC){
+        return args -> {
+            System.out.println("Compra repository\n");
 
             List<Compra> c = repoC.getByIdPropietario(3L);
             Compra c1=c.get(0);
+        };
+    }
+
+    @Bean
+    CommandLineRunner testCompra ( ClienteRepository repoCli){
+        return args -> {
+
             Optional<Cliente> r = repoCli.findById(3L);
             if(r.isPresent()){
                 System.out.println(r.get().getNombre());
