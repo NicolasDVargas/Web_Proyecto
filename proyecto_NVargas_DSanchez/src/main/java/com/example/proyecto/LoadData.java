@@ -83,7 +83,7 @@ class LoadData {
             lista3.add(ca);
             lista3.add(ga);
             lista3.add(fa);
-            lista2.add(bo);
+            lista3.add(bo);
 
             List<Dulce> lista4 = new ArrayList<Dulce>();
             lista4.add(ha);
@@ -180,8 +180,10 @@ class LoadData {
         return args -> {
             System.out.println("Compra repository\n");
 
-            List<Compra> c = repoC.getByIdPropietario(3L);
-            Compra c1=c.get(0);
+            List<Compra> c = repoC.getByIdPropietario(1L);
+            if(c.size() > 0) {
+                Compra c1=c.get(0);
+            }
         };
     }
 
@@ -189,7 +191,7 @@ class LoadData {
     CommandLineRunner testCliente ( ClienteRepository repoCli){
         return args -> {
 
-            Optional<Cliente> r = repoCli.findById(3L);
+            Optional<Cliente> r = repoCli.findById(1L);
             if(r.isPresent()){
                 System.out.println(r.get().getNombre());
             }
