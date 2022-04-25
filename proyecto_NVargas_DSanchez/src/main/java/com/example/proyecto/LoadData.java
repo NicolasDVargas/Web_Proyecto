@@ -55,7 +55,7 @@ class LoadData {
             lista3.add(g);
             lista3.add(f);
 
-            repoC.save(new Compra(a,lista1));
+            repoC.save(new Compra(a,lista1));//a=cliente list1=lista de dulces
             repoC.save(new Compra(a,lista2));
             repoC.save(new Compra(b,lista3));
 
@@ -92,7 +92,7 @@ class LoadData {
     }
 
     @Bean
-    CommandLineRunner testCompra ( ClienteRepository repoCli){
+    CommandLineRunner testCliente ( ClienteRepository repoCli){
         return args -> {
 
             Optional<Cliente> r = repoCli.findById(3L);
