@@ -53,7 +53,7 @@ public class CompraService implements ICompraService {
     public boolean editarCompra(Compra compra, Long id) {
         Optional<Compra> c =  repoC.findById(id);
         if(c.isPresent()){
-            repoC.save(compra);
+            repoC.save(c.get());
             return true;
         }
         return false;

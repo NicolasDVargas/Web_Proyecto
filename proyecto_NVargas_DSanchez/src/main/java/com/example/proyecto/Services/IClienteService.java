@@ -1,5 +1,7 @@
 package com.example.proyecto.Services;
 
+import java.util.List;
+
 import com.example.proyecto.model.Cliente;
 
 public interface IClienteService {
@@ -10,5 +12,7 @@ public interface IClienteService {
     Cliente buscarPorId(Long id);
 
     Cliente buscarPorEmailContrasenna(String email,String contrasenna);
+
+    List<Cliente> tomarClientes();
 
 }

@@ -45,7 +45,7 @@ public class DulceService implements IDulceService {
 
         Optional<Dulce> d = repoD.findById(id);
         if(d.isPresent()){
-            repoD.save(nuevoDulce);
+            repoD.save(d.get());
             return true;
         }else{
             return false;

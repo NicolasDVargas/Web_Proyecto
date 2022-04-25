@@ -6,6 +6,7 @@ import com.example.proyecto.DTOs.ClienteDTO;
 import com.example.proyecto.Services.IClienteService;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ClienteController {
     private IClienteService clienteService;
 
     private ClienteDTO convertDTOs(Cliente cliente) {
+        if(cliente == null) {
+            return null;
+        }
         ClienteDTO result = new ClienteDTO();
 		ModelMapper mapper = new ModelMapper();
 		
@@ -43,8 +47,8 @@ public class ClienteController {
     }
 
     @GetMapping("Buscar/nombre&contrasenna")
-    public ClienteDTO iniciarSesion(@RequestBody String email, String contrasenna){
-        return  convertDTOs(clienteService.buscarPorEmailContrasenna(email, contrasenna));
+    public ClienteDTO iniciarSesion(@RequestBody ObjectNode aaa){
+        return  convertDTOs(clienteService.buscarPorEmailContrasenna(aaa.get("email").asText(), aaa.get("contrasenna").asText()));
     }
 
     @PutMapping("Editar")
@@ -65,5 +69,8 @@ public class ClienteController {
         return c.getFacturas();  
     }
 
-
+@GetMapping()
+public List<Cliente> getClientes(){
+    return clienteService.tomarClientes();
+}
 }

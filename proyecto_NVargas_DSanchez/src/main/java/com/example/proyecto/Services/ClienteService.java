@@ -1,5 +1,6 @@
 package com.example.proyecto.Services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.proyecto.Repository.ClienteRepository;
@@ -46,13 +47,16 @@ public class ClienteService implements IClienteService{
     public boolean editarCliente(Cliente cliente, Long id) {
         Optional<Cliente> c = repoCli.findById(id);
         if(c.isPresent()){
-            repoCli.save(cliente);
+            repoCli.save(c.get());
             return true ;
         }else{
             return false;
         }
     }
     
-    
+    @Override
+    public List<Cliente> tomarClientes() {
+        return repoCli.findAll();
+    }
     
 }
