@@ -45,7 +45,13 @@ public class DulceService implements IDulceService {
 
         Optional<Dulce> d = repoD.findById(id);
         if(d.isPresent()){
-            repoD.save(d.get());
+            Dulce nuevo = d.get();
+            nuevo.setNombre(nuevoDulce.getNombre());
+            nuevo.setCantidad(nuevoDulce.getCantidad());
+            nuevo.setCosto(nuevoDulce.getCosto());
+            nuevo.setTipo(nuevoDulce.getTipo());
+            nuevo.setVendido(nuevoDulce.getVendido());
+            repoD.save(nuevo);
             return true;
         }else{
             return false;

@@ -47,7 +47,11 @@ public class ClienteService implements IClienteService{
     public boolean editarCliente(Cliente cliente, Long id) {
         Optional<Cliente> c = repoCli.findById(id);
         if(c.isPresent()){
-            repoCli.save(c.get());
+            Cliente nuevo = c.get();
+            nuevo.setNombre(cliente.getNombre());
+            nuevo.setEmail(cliente.getEmail());
+            nuevo.setContrasenna(cliente.getContrasenna());
+            repoCli.save(nuevo);
             return true ;
         }else{
             return false;

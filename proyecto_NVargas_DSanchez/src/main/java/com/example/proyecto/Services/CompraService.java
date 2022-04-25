@@ -53,7 +53,12 @@ public class CompraService implements ICompraService {
     public boolean editarCompra(Compra compra, Long id) {
         Optional<Compra> c =  repoC.findById(id);
         if(c.isPresent()){
-            repoC.save(c.get());
+            Compra nuevaCompra = c.get();
+            nuevaCompra.setPedido(compra.getPedido());
+            nuevaCompra.setPropietario(compra.getPropietario());
+            nuevaCompra.setFechaCompra(compra.getFechaCompra());
+            nuevaCompra.setTotal(compra.getTotal());
+            repoC.save(nuevaCompra);
             return true;
         }
         return false;
