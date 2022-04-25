@@ -1,8 +1,10 @@
 package com.example.proyecto.Rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.proyecto.DTOs.ClienteDTO;
+import com.example.proyecto.DTOs.CompraDTO;
 import com.example.proyecto.Services.IClienteService;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
@@ -36,6 +38,30 @@ public class ClienteController {
 		return result;
 	}
 
+    private CompraDTO compraDTOs(Compra compra) {
+        if(compra == null) {
+            return null;
+        }
+        CompraDTO result = new CompraDTO();
+		ModelMapper mapper = new ModelMapper();
+		
+        result= mapper.map(compra,CompraDTO.class);
+
+		return result;
+	}
+
+    private List<CompraDTO> comprasDTO(List<Compra> compras){
+        List<CompraDTO> result = new ArrayList<>();
+		ModelMapper mapper = new ModelMapper();
+		
+		for (Compra compra : compras) {
+			result.add(mapper.map(compra, CompraDTO.class));
+		}
+
+        return result;
+    }
+
+
     @PutMapping("Ingresar")
     public boolean Agregar(@RequestBody Cliente cliente){
         return clienteService.agregarCliente(cliente);
@@ -58,15 +84,15 @@ public class ClienteController {
     }
 
     @GetMapping("Buscar/Carrito")
-    public Compra getCarrito( @RequestParam(name = "id") Long id){
+    public CompraDTO getCarrito( @RequestParam(name = "id") Long id){
         Cliente c = clienteService.buscarPorId(id);
-        return c.getCarrito();  
+        return compraDTOs(c.getCarrito());  
     }
 
     @GetMapping("Buscar/facturas")
-    public List<Compra> getFacturaas( @RequestParam(name = "id") Long id){
+    public List<CompraDTO> getFacturaas( @RequestParam(name = "id") Long id){
         Cliente c = clienteService.buscarPorId(id);
-        return c.getFacturas();  
+        return comprasDTO(c.getFacturas());  
     }
 
 @GetMapping()
