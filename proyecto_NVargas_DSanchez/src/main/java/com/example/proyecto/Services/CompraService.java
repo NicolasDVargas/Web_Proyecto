@@ -4,7 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
+import com.example.proyecto.Repository.ClienteRepository;
 import com.example.proyecto.Repository.CompraRepository;
+import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
 import com.example.proyecto.model.Dulce;
 
@@ -17,11 +20,22 @@ public class CompraService implements ICompraService {
     @Autowired
     private CompraRepository repoC;
 
+    @Autowired
+    private ClienteRepository repoCli;
+
     @Override
-    public boolean agregarCompra(Compra compra) {
-      
-        repoC.save(compra);
-        return  true;
+    public boolean agregarCompra(Compra compra, Long id) {
+        Optional<Cliente> cliente = repoCli.findById(id);
+        if(cliente.isPresent()) {
+            List<Dulce> dulces = compra.getPedido();
+            Compra compra1 = new Compra(cliente.get(), dulces);
+            //compra1.setPropietario(cliente.get());
+            repoC.save(compra1);
+            cliente.get().getFacturas().add(compra1);
+            repoCli.save(cliente.get());
+            return  true;
+        }
+        return false;
     } 
 
     @Override

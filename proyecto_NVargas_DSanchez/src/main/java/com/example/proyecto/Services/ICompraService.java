@@ -8,7 +8,7 @@ import com.example.proyecto.model.Dulce;
 
 public interface ICompraService {
     
-    boolean agregarCompra(Compra compra);
+    boolean agregarCompra(Compra compra, Long id);
 
     boolean editarCompra(Compra compra, Long id);
 

@@ -99,11 +99,38 @@ class LoadData {
             lista5.add(ja);
             lista5.add(ha);
 
-            repoC.save(new Compra(a,lista1));//a=cliente list1=lista de dulces
-            repoC.save(new Compra(e,lista2));
-            repoC.save(new Compra(b,lista3));
-            repoC.save(new Compra(j,lista4));
-            repoC.save(new Compra(h,lista5));
+            Compra com1 = new Compra(a,lista1);
+            Compra com2 = new Compra(e,lista2);
+            Compra com3 = new Compra(b,lista3);
+            Compra com4 = new Compra(j,lista4);
+            Compra com5 = new Compra(h,lista5);
+
+            repoC.save(com1);//a=cliente list1=lista de dulces
+            repoC.save(com2);
+            repoC.save(com3);
+            repoC.save(com4);
+            repoC.save(com5);
+
+            List<Compra> factura1 = new ArrayList<>();
+            factura1.add(com1);
+
+            List<Compra> factura2 = new ArrayList<>();
+            factura2.add(com2);
+
+            List<Compra> factura3 = new ArrayList<>();
+            factura3.add(com3);
+
+            List<Compra> factura4 = new ArrayList<>();
+            factura4.add(com4);
+
+            List<Compra> factura5 = new ArrayList<>();
+            factura5.add(com5);
+
+            a.setFacturas(factura1);
+            e.setFacturas(factura2);
+            b.setFacturas(factura3);
+            j.setFacturas(factura4);
+            h.setFacturas(factura5);
 
             List<Dulce> listav1 = new ArrayList<Dulce>();
             listav1.add(ga);
