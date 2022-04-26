@@ -26,13 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
         return dulceService.agregarDulce(dulce);
     }
 
-    @DeleteMapping("elimiar")
-    public boolean eliminarDulce(@RequestBody Dulce dulce){
-        return dulceService.eliminarDulce(dulce);
-    }
-
-    @DeleteMapping("elimiar/id")
-    public boolean eliminarDulce(@RequestBody Long id){
+    @DeleteMapping("eliminar/id")
+    public boolean eliminarDulce(@RequestParam Long id){
         return dulceService.eliminarDulce(id);
     }
 

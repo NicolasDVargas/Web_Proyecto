@@ -60,18 +60,6 @@ public class DulceService implements IDulceService {
     }
 
     @Override
-    public boolean eliminarDulce(Dulce dulce) {
-        
-        Optional<Dulce> d = repoD.findById(dulce.getId());
-        if(d.isPresent()){
-            repoD.delete(d.get());
-            return true;
-        }else{
-            return false;
-        } 
-    }
-
-    @Override
     public boolean eliminarDulce(Long id) {
 
         Optional<Dulce> d = repoD.findById(id);

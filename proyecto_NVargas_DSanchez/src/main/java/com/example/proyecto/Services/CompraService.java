@@ -1,11 +1,10 @@
 package com.example.proyecto.Services;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
-import com.example.proyecto.Repository.ClienteRepository;
 import com.example.proyecto.Repository.CompraRepository;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
@@ -21,27 +20,25 @@ public class CompraService implements ICompraService {
     private CompraRepository repoC;
 
     @Autowired
-    private ClienteRepository repoCli;
+    private IClienteService clienteService;
 
     @Override
-    public boolean agregarCompra(Compra compra, Long id) {
-        Optional<Cliente> cliente = repoCli.findById(id);
-        if(cliente.isPresent()) {
-            List<Dulce> dulces = compra.getPedido();
-            Compra compra1 = new Compra(cliente.get(), dulces);
-            //compra1.setPropietario(cliente.get());
+    public boolean agregarCompra(List<Dulce> dulces, Long id) {
+        Cliente cliente = clienteService.buscarPorId(id);
+        if(cliente!=null) {
+            Compra compra1 = new Compra(cliente, dulces);
             repoC.save(compra1);
-            cliente.get().getFacturas().add(compra1);
-            repoCli.save(cliente.get());
+            if(cliente.getFacturas().size()==0){
+                List<Compra> facturas = new ArrayList<>();
+                facturas.add(compra1);
+                cliente.setFacturas(facturas);
+            }
+            cliente.getFacturas().add(compra1);
+            clienteService.editarCliente(cliente, id);  
             return  true;
         }
         return false;
     } 
-
-    @Override
-    public List<Compra> buscarEntreFechas(Date inicio, Date fin) {
-        return  repoC.findByFechaCompraBetween(inicio, fin);
-    }
 
     @Override
     public List<Compra> buscarPorDuenno(Long clienteID) {
@@ -49,7 +46,7 @@ public class CompraService implements ICompraService {
     }
 
     @Override
-    public List<Compra> buscarPorFecha(Date date) {
+    public List<Compra> buscarPorFecha(String date) {
         
         return repoC.findByFechaCompra(date);
     }

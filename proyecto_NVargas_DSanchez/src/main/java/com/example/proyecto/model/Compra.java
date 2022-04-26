@@ -1,6 +1,6 @@
 package com.example.proyecto.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
@@ -30,8 +28,8 @@ public class Compra {
     @Basic
     private Long total;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCompra;
+    @Basic
+    private String fechaCompra;
 
     public Compra(){}
 
@@ -39,6 +37,17 @@ public class Compra {
     public Compra(Cliente propietario, List<Dulce> pedido) {
         Propietario = propietario;
         this.dulces = pedido;
+        setfecha();
+    }
+
+    public void setfecha(){
+        LocalDate fecha = java.time.LocalDate.now();
+        setFechaCompra(fecha.toString());
+    }
+
+
+    public void setFechaCompra(String string) {
+        this.fechaCompra = string;
     }
 
 
@@ -82,14 +91,19 @@ public class Compra {
     }
 
 
-    public Date getFechaCompra() {
+    public String getFechaCompra() {
         return fechaCompra;
     }
 
 
-    public void setFechaCompra(Date fechaCompra) {
-        this.fechaCompra = fechaCompra;
+    public List<Dulce> getDulces() {
+        return dulces;
     }
 
-    
+
+    public void setDulces(List<Dulce> dulces) {
+        this.dulces = dulces;
+    }
+
+
 }

@@ -8,8 +8,6 @@ public interface IDulceService {
 
     boolean agregarDulce(Dulce dulce);
 
-    boolean eliminarDulce(Dulce dulce);
-
     boolean eliminarDulce(Long id);
 
     boolean editarDulce(Dulce dulce, Long id);

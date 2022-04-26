@@ -1,7 +1,6 @@
 package com.example.proyecto.Rest;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com.example.proyecto.DTOs.CompraDTO;
@@ -49,7 +48,7 @@ public class CompraController  {
     }
      
     @PutMapping("Ingresar")
-    public boolean Agregar(@RequestBody Compra compra, @RequestParam(name = "id") Long id){
+    public boolean Agregar(@RequestBody List<Dulce> compra, @RequestParam(name = "id") Long id){
         return compraService.agregarCompra(compra, id);
     }
  
@@ -74,20 +73,10 @@ public class CompraController  {
     }
 
     @GetMapping("Buscar/FechaUnica")
-    public List<CompraDTO> BuscarFecha(@RequestParam(name = "day") int day,@RequestParam(name = "month") int month,@RequestParam(name = "year") int year){
-        Calendar d = Calendar.getInstance();
-        d.set(year, month-1, day);
-        return comprasDTO(compraService.buscarPorFecha(d.getTime()));
+    public List<CompraDTO> BuscarFecha(@RequestParam(name = "fecha") String fecha){
+        return comprasDTO(compraService.buscarPorFecha(fecha));
     }
 
-    @GetMapping("Buscar/FechaMultiple")
-    public List<CompraDTO> BuscarFechas(@RequestParam(name = "day1") int day1,@RequestParam(name = "month1") int month1,@RequestParam(name = "year1") int year1,@RequestParam(name = "day2") int day2,@RequestParam(name = "month2") int month2,@RequestParam(name = "year2") int year2){
-        Calendar d1 = Calendar.getInstance();
-        Calendar d2 = Calendar.getInstance();
-        d1.set(year1, month1-1, day1);
-        d2.set(year2, month2-1, day2);
-        return comprasDTO(compraService.buscarEntreFechas(d1.getTime(),d2.getTime()));
-    }
 
     @GetMapping("Buscar/todos")
     public List<CompraDTO> buscarTodos(){
