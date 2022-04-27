@@ -18,7 +18,7 @@ public class DulceService implements IDulceService {
     @Override
     public boolean agregarDulce(Dulce dulce) {
         repoD.save(dulce);
-        return false;
+        return true;
     }
 
     @Override

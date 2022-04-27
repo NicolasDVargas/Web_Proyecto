@@ -7,7 +7,7 @@ import com.example.proyecto.model.Dulce;
 
 public interface ICompraService {
     
-    boolean agregarCompra(List<Dulce> dulces, Long id);
+    boolean agregarCompra(Compra dulces, Long id);
 
     boolean editarCompra(Compra compra, Long id);
 

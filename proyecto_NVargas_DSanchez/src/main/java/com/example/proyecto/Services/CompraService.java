@@ -23,10 +23,11 @@ public class CompraService implements ICompraService {
     private IClienteService clienteService;
 
     @Override
-    public boolean agregarCompra(List<Dulce> dulces, Long id) {
+    public boolean agregarCompra(Compra dulces, Long id) {
         Cliente cliente = clienteService.buscarPorId(id);
         if(cliente!=null) {
-            Compra compra1 = new Compra(cliente, dulces);
+            clienteService.editarCliente(cliente, id);  
+            Compra compra1 = new Compra(cliente, dulces.getDulces());
             repoC.save(compra1);
             if(cliente.getFacturas().size()==0){
                 List<Compra> facturas = new ArrayList<>();

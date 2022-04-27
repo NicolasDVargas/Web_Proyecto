@@ -48,7 +48,7 @@ public class CompraController  {
     }
      
     @PutMapping("Ingresar")
-    public boolean Agregar(@RequestBody List<Dulce> compra, @RequestParam(name = "id") Long id){
+    public boolean Agregar(@RequestBody Compra compra, @RequestParam(name = "id") Long id){
         return compraService.agregarCompra(compra, id);
     }
  
