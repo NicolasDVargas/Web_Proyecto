@@ -57,11 +57,6 @@ public class CompraController  {
         return compraService.editarCompra(compra, id);
     }
 
-    @PutMapping("Editar/Carrito")
-    public boolean EditarCarrito(@RequestBody List<Dulce> carrito,  @RequestParam(name = "id") Long id){
-        return compraService.editarCompra(carrito, id);
-    }
-
     @GetMapping("Buscar/id")
     public CompraDTO BuscarId(@RequestParam(name = "id") Long id){
         return compraDTOs(compraService.buscarPorId(id));

@@ -15,8 +15,6 @@ public interface ICompraService {
 
     List<Compra> buscarPorDuenno(Long clienteID);
 
-    boolean editarCompra(List<Dulce> carrito, Long id);
-
     List<Compra> buscarPorFecha(String date);
 
     List<Compra> getCompras();

@@ -8,6 +8,7 @@ import com.example.proyecto.DTOs.CompraDTO;
 import com.example.proyecto.Services.IClienteService;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
+import com.example.proyecto.model.Dulce;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.modelmapper.ModelMapper;
@@ -65,6 +66,11 @@ public class ClienteController {
     @PutMapping("Ingresar")
     public boolean Agregar(@RequestBody Cliente cliente){
         return clienteService.agregarCliente(cliente);
+    }
+
+    @PutMapping("Editar/Carrito")
+    public boolean EditarCarrito(@RequestBody List<Dulce> carrito,  @RequestParam(name = "id") Long id){
+        return clienteService.editarCompra(carrito, id);
     }
 
     @GetMapping("Buscar/id")

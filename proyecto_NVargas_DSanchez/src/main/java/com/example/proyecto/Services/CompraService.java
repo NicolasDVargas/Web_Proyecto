@@ -70,6 +70,7 @@ public class CompraService implements ICompraService {
             nuevaCompra.setPropietario(compra.getPropietario());
             nuevaCompra.setFechaCompra(compra.getFechaCompra());
             nuevaCompra.setTotal(compra.getTotal());
+            nuevaCompra.setfecha();
             repoC.save(nuevaCompra);
             return true;
         }
@@ -81,16 +82,6 @@ public class CompraService implements ICompraService {
         return repoC.findAll();
     }
 
-    @Override
-    public boolean editarCompra(List<Dulce> carrito, Long id) {
-        Optional<Compra> c =  repoC.findById(id);
-        if(c.isPresent()){
-            Compra compra = c.get();
-            compra.setPedido(carrito);
-            repoC.save(compra);
-            return true;
-        }
-        return false;
-    }
+    
 
 }

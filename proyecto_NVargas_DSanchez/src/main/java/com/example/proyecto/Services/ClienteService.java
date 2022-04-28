@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.proyecto.Repository.ClienteRepository;
+import com.example.proyecto.Repository.CompraRepository;
 import com.example.proyecto.model.Cliente;
+import com.example.proyecto.model.Compra;
+import com.example.proyecto.model.Dulce;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ public class ClienteService implements IClienteService{
 
     @Autowired
     ClienteRepository repoCli;
+    CompraRepository repoC;
 
     @Override
     public boolean agregarCliente(Cliente cliente) {
@@ -61,6 +65,18 @@ public class ClienteService implements IClienteService{
     @Override
     public List<Cliente> tomarClientes() {
         return repoCli.findAll();
+    }
+
+    @Override
+    public boolean editarCompra(List<Dulce> carrito, Long id) {
+        Optional<Compra> c =  repoC.findById(id);
+        if(c.isPresent()){
+            Compra compra = c.get();
+            compra.setPedido(carrito);
+            repoC.save(compra);
+            return true;
+        }
+        return false;
     }
     
 }
