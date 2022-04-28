@@ -69,11 +69,14 @@ public class ClienteService implements IClienteService{
 
     @Override
     public boolean editarCompra(List<Dulce> carrito, Long id) {
-        Optional<Compra> c =  repoC.findById(id);
+        Optional<Cliente> c =  repoCli.findById(id);
         if(c.isPresent()){
-            Compra compra = c.get();
-            compra.setPedido(carrito);
-            repoC.save(compra);
+            Cliente cliente = c.get();
+            Compra compraNueva = cliente.getCarrito();
+            compraNueva.setDulces(carrito);
+            repoC.save(compraNueva);
+            cliente.setCarrito(compraNueva);
+            repoCli.save(cliente);
             return true;
         }
         return false;

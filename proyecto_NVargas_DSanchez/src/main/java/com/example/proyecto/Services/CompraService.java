@@ -8,7 +8,6 @@ import java.util.Optional;
 import com.example.proyecto.Repository.CompraRepository;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
-import com.example.proyecto.model.Dulce;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

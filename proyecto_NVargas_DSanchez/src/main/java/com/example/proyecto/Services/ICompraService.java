@@ -3,7 +3,6 @@ package com.example.proyecto.Services;
 import java.util.List;
 
 import com.example.proyecto.model.Compra;
-import com.example.proyecto.model.Dulce;
 
 public interface ICompraService {
     

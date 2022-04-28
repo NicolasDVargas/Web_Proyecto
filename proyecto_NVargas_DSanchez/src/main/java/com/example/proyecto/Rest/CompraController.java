@@ -6,7 +6,6 @@ import java.util.List;
 import com.example.proyecto.DTOs.CompraDTO;
 import com.example.proyecto.Services.ICompraService;
 import com.example.proyecto.model.Compra;
-import com.example.proyecto.model.Dulce;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
