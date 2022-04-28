@@ -17,6 +17,8 @@ public class ClienteService implements IClienteService{
 
     @Autowired
     ClienteRepository repoCli;
+
+    @Autowired
     CompraRepository repoC;
 
     @Override

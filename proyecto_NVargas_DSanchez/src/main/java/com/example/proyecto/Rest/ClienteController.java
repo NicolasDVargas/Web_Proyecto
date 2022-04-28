@@ -1,10 +1,12 @@
 package com.example.proyecto.Rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.example.proyecto.DTOs.ClienteDTO;
 import com.example.proyecto.DTOs.CompraDTO;
+import com.example.proyecto.DTOs.DulceDTO;
 import com.example.proyecto.Services.IClienteService;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
@@ -69,7 +71,7 @@ public class ClienteController {
     }
 
     @PutMapping("Editar/Carrito")
-    public boolean EditarCarrito(@RequestBody List<Dulce> carrito,  @RequestParam(name = "id") Long id){
+    public boolean EditarCarrito(@RequestBody List<Dulce> carrito, @RequestParam(name = "id") Long id){
         return clienteService.editarCompra(carrito, id);
     }
 
