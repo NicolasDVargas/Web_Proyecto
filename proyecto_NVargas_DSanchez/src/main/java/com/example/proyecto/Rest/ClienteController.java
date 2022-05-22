@@ -104,7 +104,11 @@ public class ClienteController {
     }
 
 @GetMapping()
-public List<Cliente> getClientes(){
-    return clienteService.tomarClientes();
+public List<ClienteDTO> getClientes(){
+    List<ClienteDTO> clientesDTO = new ArrayList();
+    for(Cliente cliente : clienteService.tomarClientes()) {
+        clientesDTO.add(convertDTOs(cliente));
+    }
+    return clientesDTO;
 }
 }

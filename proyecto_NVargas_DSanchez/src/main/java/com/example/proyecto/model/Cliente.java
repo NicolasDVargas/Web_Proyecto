@@ -46,6 +46,14 @@ public class Cliente {
         this.admin = admin;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public long getId() {
         return id;
     }

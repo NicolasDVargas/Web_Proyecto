@@ -6,8 +6,17 @@ public class ClienteDTO {
     private String nombre;
     private String email;
     private boolean admin;
+    private String contrasenna;
         
     
+    public String getContrasenna() {
+        return contrasenna;
+    }
+
+    public void setContrasenna(String contrasenna) {
+        this.contrasenna = contrasenna;
+    }
+
     public ClienteDTO() {}
 
 
