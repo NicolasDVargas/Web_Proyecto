@@ -6,9 +6,11 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -34,16 +36,28 @@ public class Cliente {
     @OneToOne//ya es eager
     private Compra carrito;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Compra> facturas;
     
     public Cliente() {}
 
-    public Cliente( String nombre, String contrasenna, String email, boolean admin) {;
+    public Cliente( String nombre, String contrasenna, String email, boolean admin, Role role) {;
         this.nombre = nombre;
         this.contrasenna = contrasenna;
         this.email = email;
         this.admin = admin;
+        this.role = role;
     }
 
     public boolean isAdmin() {

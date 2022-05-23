@@ -11,32 +11,42 @@ import java.util.Optional;
 import com.example.proyecto.Repository.ClienteRepository;
 import com.example.proyecto.Repository.CompraRepository;
 import com.example.proyecto.Repository.DulceRepository;
+import com.example.proyecto.Repository.RolesRepository;
 import com.example.proyecto.model.Cliente;
 import com.example.proyecto.model.Compra;
 import com.example.proyecto.model.Dulce;
+import com.example.proyecto.model.Role;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 class LoadData {
 
     @Bean
-    CommandLineRunner pobladorBD (DulceRepository repoD, CompraRepository repoC, ClienteRepository repoCli){
+    CommandLineRunner pobladorBD (DulceRepository repoD, CompraRepository repoC, ClienteRepository repoCli, RolesRepository repoR, BCryptPasswordEncoder bCryptPasswordEncoder){
         return args ->{
             System.out.println("poblando la BD\n");
+
+            Role roleAdmin = new Role();
+            roleAdmin.setName("ADMIN");
+            repoR.save(roleAdmin);
+            Role roleUser = new Role();
+            roleUser.setName("USER");
+            repoR.save(roleUser);
           
-            Cliente a = new Cliente("Pablo","101112","jpablo@gmail.com",false);
-            Cliente b = new Cliente("Diego","131415","dfsanchez@gmail.com",false);
-            Cliente c = new Cliente("Nicolas","12345","nicroleto@gmail.com",true);
-            Cliente d = new Cliente("Camilo","6789","juank1@gmail.com",true);
-            Cliente e = new Cliente("Juana","78910","juanitasf2@gmail.com",false);
-            Cliente f = new Cliente("Miguel","55555","migueldl@gmail.com",true);
-            Cliente g = new Cliente("Sofia","54321","sofisofi@gmail.com",true);
-            Cliente h = new Cliente("Paul","8080","paulsp8@gmail.com",false);
-            Cliente i = new Cliente("Laura","7410","lauperez2@gmail.com",false);
-            Cliente j = new Cliente("Natalia","8426","natadiaz1@gmail.com",false);
+            Cliente a = new Cliente("Pablo",bCryptPasswordEncoder.encode("101112"),"jpablo@gmail.com",false, roleUser);
+            Cliente b = new Cliente("Diego",bCryptPasswordEncoder.encode("131415"),"dfsanchez@gmail.com",false, roleUser);
+            Cliente c = new Cliente("Nicolas",bCryptPasswordEncoder.encode("12345"),"nicroleto@gmail.com",true, roleUser);
+            Cliente d = new Cliente("Camilo",bCryptPasswordEncoder.encode("6789"),"juank1@gmail.com",true, roleUser);
+            Cliente e = new Cliente("Juana",bCryptPasswordEncoder.encode("78910"),"juanitasf2@gmail.com",false, roleUser);
+            Cliente f = new Cliente("Miguel",bCryptPasswordEncoder.encode("55555"),"migueldl@gmail.com",true, roleUser);
+            Cliente g = new Cliente("Sofia",bCryptPasswordEncoder.encode("54321"),"sofisofi@gmail.com",true, roleUser);
+            Cliente h = new Cliente("Paul",bCryptPasswordEncoder.encode("8080"),"paulsp8@gmail.com",false, roleUser);
+            Cliente i = new Cliente("Laura",bCryptPasswordEncoder.encode("7410"),"lauperez2@gmail.com",false, roleUser);
+            Cliente j = new Cliente("Natalia",bCryptPasswordEncoder.encode("8426"),"natadiaz1@gmail.com",false, roleUser);
             repoCli.save(a);
             repoCli.save(b);
             repoCli.save(c);
