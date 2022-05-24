@@ -67,6 +67,6 @@ public class JWTAuthentificationFilter extends UsernamePasswordAuthenticationFil
                 .compact();
 
         response.addHeader("Authorization", "Bearer " + token);
-        response.getWriter().write(token);
+        response.getWriter().write("Bearer " + token);
     }
 }
