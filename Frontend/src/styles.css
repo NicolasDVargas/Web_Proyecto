@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Mouser';
+    src: url('/src/assets/font/Mouser\ D.otf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+
+html {
+    background: url("https://wallpapersmug.com/download/3840x2400/e3f541/colorful-candies-sweets.jpg") no-repeat center;
+    height: 100%;
+    min-height: 100%;
+}
+
+body {
+  background:rgba(175, 238, 238, 0.9);
+  min-height: 100%;
+}

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dulce of carrito">
+                    <td> {{dulce.cosa.nombre}}</td>
+                    <td> {{dulce.cosa.tipo}}</td>
+                    <td> {{dulce.cosa.costo}}</td>
+                    <button class="btn" type="button" (click)="eliminar(dulce)">Eliminar</button>
+                </tr>
+            </tbody>
+            <h2 class="total">Total: {{total}}</h2>
+        </div>
+    </div>
+    <div class="buttonsDiv">
+        <button type="button" class="buttonS"(click)="comprar()">Comprar</button>
+        <button type="button" class="buttonC"(click)="home()">Volver</button>
+    </div>
+</div>

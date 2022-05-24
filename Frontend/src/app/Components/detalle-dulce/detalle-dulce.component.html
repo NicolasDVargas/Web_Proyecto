@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="containerInfo">
+        <h1 class="item">{{dulce.nombre}}</h1>
+        <img class="item" src={{dulce.imagen}}>
+        <p id="Categoria">{{dulce.tipo}}</p>
+        <p class="itemA" id="costo">Precio  {{dulce.costo}}</p>
+    </div>
+    <div *ngFor="let usu of _adminsService.administradores">
+            <div *ngIf="usu.nombre==admin.nombre else elseBlock">
+                <div class="buttonsDiv">
+                    <input type="button" value="Editar" class="buttonS" (click)="editar()">
+                    <input type="button" value="Eliminar" class="buttonC" (click)="eliminar()">
+                </div>
+            </div>
+    
+            <ng-template #elseBlock class="buttonsDiv">
+                <div class="buttonsDiv">
+                    <button type="button" class="buttonS" (click)="agregarCarrito()">Comprar</button>
+                    <button type="button" class="buttonC" (click)="volverHome()">Retroceder</button>
+                </div>
+            </ng-template>
+    </div>
+</div>

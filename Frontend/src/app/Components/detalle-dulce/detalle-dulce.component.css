@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    padding: 2%;
+    margin: auto;
+    margin-top: 2%;
+    border-radius: 10px;
+    font: normal 22px Mouser;
+}
+
+.item {
+    padding: 1%;
+}
+
+.itemA {
+    padding-bottom: 2%;
+}
+
+.containerInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.buttonsDiv {
+    width: 100%;
+    background: white;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonS {
+    background: greenyellow;
+    border-radius: 10px;
+    padding: 2%;
+    margin-right: 10%;
+}
+
+.buttonC {
+    background: rgb(255, 97, 97);
+    border-radius: 10px;
+    padding: 2%;
+    margin-left: 10%;
+}

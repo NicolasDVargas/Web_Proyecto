@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    padding: 2%;
+    margin: auto;
+    margin-top: 2%;
+    border-radius: 10px;
+    font: normal 22px Mouser;
+}
+
+.table {
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 50px 5px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.buttonC {
+    background: rgb(255, 97, 97);
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 25%;
+}

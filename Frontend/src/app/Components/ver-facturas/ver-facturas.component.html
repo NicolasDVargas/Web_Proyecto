@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Cantidad de productos</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let factura of Usuario.Facturas">
+                    <td class="item">{{factura.id}}</td>
+                    <td class="item">{{factura.pedido.length}}</td>
+                    <td class="item">{{factura.total}}</td>
+                    <button class="btn" type="button" (click)="elegir(factura)">Ver detalles</button>
+                </tr>
+            </tbody>
+        </div>
+    </div>
+    <button type="button" class="buttonC" (click)="perfil()">Volver</button>
+</div>

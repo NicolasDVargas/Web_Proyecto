@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Cantidad vendida</th>
+                    <th>Vendido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dulce of inventario" >
+                    <td> {{dulce.nombre}}</td>
+                    <td> {{dulce.tipo}}</td>
+                    <td> {{dulce.vendido}}</td>
+                    <td> {{dulce.vendido*dulce.costo}}</td>
+                    <button class="btn" type="button" (click)="detalles(dulce)">Ver detalles</button>
+                </tr>
+            </tbody>
+        </div>
+        <h1>Total vendido: {{total}}</h1>
+        <div class="buttonsDiv">
+            <button class="buttonS" type="button" (click)="agregarNuevo()">Agregar Dulce</button>
+            <button class="buttonC" type="button" (click)="home()">Retroceder</button>
+        </div>
+    </div>
+</div>
+
+
+

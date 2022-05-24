@@ -1,0 +1,47 @@
+#navBar{
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 2%;
+}
+
+.container-fluid{
+    background-color: #00cbcc;
+    height: auto;
+    width: 100%;
+}
+
+.button {
+    font: normal 30px Mouser;
+    text-shadow: 0 0 10px black;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.navPrincipalDiv{
+    width: 100%;
+}
+
+.navPrincipal {
+    padding-right: 1%;
+    max-width: 100%;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    margin-bottom: 0%;
+}
+
+.nav-item {
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logout {
+    color: red;
+}

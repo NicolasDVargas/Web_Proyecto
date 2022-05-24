@@ -1,0 +1,49 @@
+.formContainer {
+    background-color: white;
+    width: 80%;
+    height: auto;
+    padding: 2%;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 3%;
+    border-radius: 4px;
+    font: normal 22px Mouser;
+}
+
+.buttonsDiv {
+    width: 100%;
+    background: white;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-control {
+    width: 100%;
+    background: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+#controlFile {
+    margin-bottom: 20px;
+}
+
+.option {
+    font: normal 15px Mouser;
+}
+
+.buttonS {
+    background: greenyellow;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.buttonC {
+    background: rgb(255, 97, 97);
+    border-radius: 10px;
+    padding: 1%;
+    margin-right: 5%;
+    margin-left: 5%;
+}

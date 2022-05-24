@@ -1,0 +1,26 @@
+.container{
+    font: normal 60px Mouser;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.imagen {
+    margin-bottom: 3%;
+}
+
+.texto {
+    font-size: 60px;
+}
+
+.login {
+    color: white;
+    margin-top: 2%;
+    text-shadow: 0 0 10px black;
+    text-decoration: none;
+}
+
+
+

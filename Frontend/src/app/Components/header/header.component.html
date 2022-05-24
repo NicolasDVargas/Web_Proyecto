@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light" id="navBar">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="./home" (click)="home()"><img src="../../../assets/images/logokc_pequeno.png"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navPrincipalDiv">
+      <ul class="navPrincipal">
+        <li class="nav-item">
+          <a class="button" role="button" aria-current="page" (click)='home()'>Home</a>
+        </li>      
+        <li *ngIf="revizarAdmin() else elseBlock2" class="nav-item">
+          <a class="button" role="button" (click)="inventario()">Inventario</a>
+        </li> 
+        <li *ngIf="revizarAdmin()" class="nav-item">
+          <a class="button" role="button" (click)="cerrarSesion()">Cerrar sesion</a>
+        </li>        
+        <ng-template #elseBlock2>
+          <li *ngIf="revizar() else elseBlock" class="nav-item">
+            <a class="button" role="button" (click)="perfil()">Perfil</a>
+          </li>
+          <li *ngIf="revizar()" class="nav-item">
+            <a class="button" role="button" (click)="carrito()">Carrito</a>
+          </li>
+          <li *ngIf="revizar()" class="nav-item">
+            <a class="button" role="button" (click)="cerrarSesion()">Cerrar sesion</a>
+          </li> 
+          <ng-template #elseBlock>
+            <a class="button" role="button" (click)='Inicio()'>Ingresar</a>
+          </ng-template>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

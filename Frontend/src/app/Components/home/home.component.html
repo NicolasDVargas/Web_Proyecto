@@ -1,0 +1,11 @@
+<div id="container">
+    <tr *ngFor="let row of listProductTable()">
+        <td *ngFor="let product of row">
+            <div class="expositor" type="button" (click)="agregar(product)">
+                <h3 class="text">{{product.nombre}}</h3>
+                <div class="imageContainer"><img class="productImg" src={{product.imagen}}></div>
+                <h4 class="text">Costo: ${{product.costo}}</h4>
+            </div>
+        </td>
+    </tr>
+</div>
