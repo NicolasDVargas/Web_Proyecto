@@ -46,6 +46,16 @@ public class ClienteService implements UserDetailsService,IClienteService{
     }
 
     @Override
+    public Cliente buscarPorEmail(String email) {
+        Optional<Cliente> c = repoCli.findByEmail(email);
+        if(c.isPresent()){
+            return c.get();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public Cliente buscarPorEmailContrasenna(String email, String contrasenna) {
         Optional<Cliente> c =  repoCli.findByEmailAndContrasenna(email, contrasenna);
         if(c.isPresent()){

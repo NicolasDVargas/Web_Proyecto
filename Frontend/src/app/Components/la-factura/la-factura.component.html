@@ -9,14 +9,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let dulce of factura.pedido" >
-                    <td> {{dulce.cosa.nombre}}</td>
-                    <td> {{dulce.cosa.tipo}}</td>
-                    <td> {{dulce.cosa.costo}}</td>
+                <tr *ngFor="let candy of factura?.pedido" >
+                    <td> {{candy.nombre}}</td>
+                    <td> {{candy.tipo}}</td>
+                    <td> {{candy.costo}}</td>
                 </tr>
             </tbody>
         </div>
-        <h2>Total: {{factura.total}}</h2>
+        <h2>Total: {{factura?.total}}</h2>
     </div>
     <button class="buttonC" type="button" value="Detalles" (click)="volver()">Volver</button>
 </div>

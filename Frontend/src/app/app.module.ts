@@ -15,7 +15,8 @@ import { CarritoComponent } from './Components/carrito/carrito.component';
 import { PerfilComponent } from './Components/perfil/perfil.component';
 import { VerFacturasComponent } from './Components/ver-facturas/ver-facturas.component';
 import { LaFacturaComponent } from './Components/la-factura/la-factura.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './tools/interceptor';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -29,7 +29,7 @@ export class cliente {
   carrito: elemento[] = [];
   Facturas: Facturas[] =[];
   factura:Facturas;
-  mono:elemento;
+  dulce:elemento;
   admin:boolean;
 
   constructor (){
@@ -38,8 +38,8 @@ export class cliente {
 
   public agregar(articulo : Dulce){
     this.numElemt++;
-    this.mono = new elemento(this.numElemt,articulo);
-    this.carrito.push(this.mono)
+    this.dulce = new elemento(this.numElemt,articulo);
+    this.carrito.push(this.dulce)
   }
 
   public obtener(){

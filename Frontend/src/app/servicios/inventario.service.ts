@@ -10,7 +10,7 @@ import { catchError, Observable, UnsubscriptionError } from 'rxjs';
 })
 export class InventarioService {
 
-  public Disponible: any = [];
+  public Disponible:any [];
   public buscar: Dulce;
 
   ngOnInit() {
@@ -18,29 +18,27 @@ export class InventarioService {
   }
 
   constructor(private http: HttpClient) {
-    let dulces: Dulce[] = [];
-    this.http.get("http://localhost:8080/Dulce").subscribe((resp: any) => {this.Disponible = resp})
-    debugger;
+    this.http.get("http://localhost:8080/Dulce").subscribe((respC: any) => {this.Disponible = respC})
    }
 
+
   public putDulce(actualizacion: Dulce){
-    let url = "http://localhost:8080/Dulce/editar?id=" + actualizacion.id;
-    this.http.put(url, actualizacion).subscribe(data => {console.log("ok")});
+    let _urlEdit = "http://localhost:8080/Dulce/editar?id=" + actualizacion.id;
+    this.http.put(_urlEdit, actualizacion).subscribe(data => {console.log("ok")});
   }
 
-  public agregar(articulo : Dulce,primeraVez:boolean){
-    this.Disponible.push(articulo)
-    if(!primeraVez){
-      Swal.fire('Agregado', 'El dulce se a agregado correctamente!')
-    }
+  public agregar(articulo : Dulce){
+    this.http.put("http://localhost:8080/Dulce/Ingresar", articulo).subscribe(data => {console.log("ok")});
+    Swal.fire('Agregado', 'El dulce se a agregado correctamente!')
   }
 
   public obtener(){
     return this.Disponible;
   }
 
-  public elimiar(){
-    
+  public elimiar(deleteCandy: Dulce){
+    let _urlDelete = "http://localhost:8080/Dulce/eliminar/id?id=" + deleteCandy.id;
+    this.http.delete(_urlDelete).subscribe((Response) => {console.log("borradisimo")})
   }
 
   public editar(actualizacion:Dulce){

@@ -6,6 +6,7 @@ import { AdminsService } from 'src/app/servicios/admins.service';
 import { HttpClient } from '@angular/common/http';
 import { ClienteService } from 'src/app/servicios/clientes.service';
 import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
 
 
 @Component({
@@ -18,7 +19,7 @@ import Swal from 'sweetalert2';
 export class IniciarSesionComponent implements OnInit {
 
 
-
+  private _url = "http://localhost:8080/";
   public clientes: any = [];
   public Cliente: cliente = new cliente();
   public Admin: Administrador = new Administrador();
@@ -27,7 +28,23 @@ export class IniciarSesionComponent implements OnInit {
   constructor(public _clienteService: ClienteService, public router: Router, public _adminsService: AdminsService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:8080/Cliente').subscribe(resp => {this.clientes = resp;})
+  }
+
+  async loginUser(dataUser: any) {
+    try {
+      let loginR: any = await this.http.post(this._url + "login", dataUser, {responseType: 'text'}).toPromise()
+      let user: any = jwt_decode(loginR);
+      localStorage.setItem('user', loginR);
+      this._clienteService.actual = user;
+      Swal.fire('Bienvenido!', 'Has iniciado sesión correctamente.', 'success')
+      this.router.navigateByUrl('./home');
+    } catch (e) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Parece que ese usuario o contraseños son incorrectos',
+      })
+    }
   }
 
   buscar(correo: string, contra: string) {
@@ -45,34 +62,9 @@ export class IniciarSesionComponent implements OnInit {
           text: 'olvidaste llenar la contraseña',
         })
       } else {
-        for (let usu of this.clientes) {
-          if (usu.email == correo && usu.contrasenna == contra && usu.admin == false) {
-            debugger;
-            Swal.fire('Bienvenido', 'Has iniciado sesión exitosamente!', 'success')
-            localStorage.setItem('user', usu.nombre);
-            this.Cliente = new cliente();
-            this._clienteService.actual = usu;
-            this.router.navigateByUrl('./home');
-            this.encontrado = true;
-          }
-          
-          if (usu.email == correo && usu.contrasenna == contra && usu.admin == true) {
-            localStorage.setItem('user', usu.nombre);
-            Swal.fire('Bienvenido ' + usu.nombre, 'Ha iniciado sesión como administrador', 'success')
-            this._adminsService.admin = usu;
-            this.Admin = new Administrador();
-            this.router.navigateByUrl('./home');
-            this.encontrado = true;
-          }
-        }
-
-        if (!this.encontrado) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Parece que ese usuario o contraseños son incorrectos',
-          })
-        }
+        
+        var dataUser = {"email":correo, "contrasenna":contra};
+        this.loginUser(dataUser);
       }
     }
 

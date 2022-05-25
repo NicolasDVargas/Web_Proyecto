@@ -23,20 +23,6 @@ public class ConfigApp {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-  public CorsFilter corsFilter() {
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOrigins(getListProperty("cors.allowed.origins"));
-    config.setAllowedMethods(getListProperty("cors.allowed.methods"));
-    config.setAllowedHeaders(getListProperty("cors.allowed.headers"));
-    config.setExposedHeaders(getListProperty("cors.exposed.headers"));
-    config.setAllowCredentials(getBooleanProperty("cors.allow.credentials"));
-    config.setMaxAge(getLongProperty("cors.maxage"));
-    source.registerCorsConfiguration("/**", config);
-    return new CorsFilter(source);
-  }
-
   private List<String> getListProperty(String key) {
     return Arrays.asList(env.getProperty(key).split(","));
   }

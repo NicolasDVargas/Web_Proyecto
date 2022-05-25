@@ -6,6 +6,7 @@ import { Dulce } from 'src/app/models/candy.model';
 import { cliente } from 'src/app/models/cliente.model';
 import { AdminsService } from 'src/app/servicios/admins.service';
 import { ClienteService } from 'src/app/servicios/clientes.service';
+import jwt_decode from 'jwt-decode';
 
 import { InventarioService } from 'src/app/servicios/inventario.service';
 
@@ -16,32 +17,19 @@ import { InventarioService } from 'src/app/servicios/inventario.service';
 })
 export class HomeComponent {
 
-  public clientes: any = [];
   public inventario: Dulce[] = [];
-  public cliente:cliente;
-  public admin:Administrador;
-  public encontrado: boolean;
+  public user:cliente
 
 
   constructor(public _InveService: InventarioService,_clienteService: ClienteService,_adminService: AdminsService, public route :Router, private http: HttpClient) {
-    
-    var nomUsuario = localStorage.getItem('user');
-    for(let cli of this.clientes){
-      if(cli.nombre==nomUsuario && cli.admin == false){
-        this.cliente = new cliente();
-        this.cliente=cli;
-        this.encontrado=true;
-      }
-    }
+  }
 
-    if(!this.encontrado){
-      for(let adm of this.clientes){
-        if(adm.nombre==nomUsuario && adm.admin == true){
-          this.admin = new Administrador();
-          this.admin=adm;
-          this.encontrado=true;
-        }
-      }
+  async findUser() {
+    let token: any = localStorage.getItem('user');
+    if(token != null) {
+      let decodedUser: any = jwt_decode(token);
+      var _url = "http://localhost:8080/Cliente/Buscar/email?email=" + decodedUser.sub;
+      this.user = await (await this.http.get(_url).toPromise()) as cliente
     }
   }
 
@@ -58,7 +46,6 @@ export class HomeComponent {
 
   ngOnInit() {
     this.http.get("http://localhost:8080/Dulce").subscribe((resp: any) => {this.inventario = resp})
-    this.http.get('http://localhost:8080/Cliente').subscribe(resp => {this.clientes = resp;})
   }
 
   agregar(compra:Dulce){

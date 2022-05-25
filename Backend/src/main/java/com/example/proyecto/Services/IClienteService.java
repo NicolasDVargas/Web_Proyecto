@@ -18,4 +18,6 @@ public interface IClienteService {
     
     boolean editarCompra(List<Dulce> carrito, Long id);
 
+    Cliente buscarPorEmail(String email);
+
 }

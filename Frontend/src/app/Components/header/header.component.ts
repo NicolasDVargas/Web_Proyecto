@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AdminsService } from 'src/app/servicios/admins.service';
 import { ClienteService } from 'src/app/servicios/clientes.service';
 import { HttpClient } from '@angular/common/http';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit {
   constructor(public router: Router, public _adminService: AdminsService, public _clienteService:ClienteService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get("http://localhost:8080/Cliente").subscribe((resp: any) => {this.clientes = resp})
+    
   }
 
   home() {
@@ -33,12 +34,11 @@ export class HeaderComponent implements OnInit {
   }
 
   revizarAdmin(): boolean {
-    var nomUsuario = localStorage.getItem('user');
-    if (nomUsuario != null) {
-      for (let adm of this.clientes) {
-        if (adm.nombre == nomUsuario && adm.admin == true) {
-          return true;
-        }
+    let token: any = localStorage.getItem('user');
+    if (token != null) {
+      let decodedUser: any = jwt_decode(token);
+      if (decodedUser.rol == "ROLE_ADMIN") {
+        return true;
       }
     }
     return false;
@@ -54,12 +54,11 @@ export class HeaderComponent implements OnInit {
 
 
   revizar(): boolean {
-    var nomUsuario = localStorage.getItem('user');
-    if (nomUsuario != null) {
-      for (let usu of this.clientes) {
-        if (usu.nombre == nomUsuario && usu.admin == false) {
-          return true;
-        }
+    let token: any = localStorage.getItem('user');
+    if (token != null) {
+      let decodedUser: any = jwt_decode(token);
+      if (decodedUser.rol == "ROLE_USER") {
+        return true;
       }
     }
     return false;

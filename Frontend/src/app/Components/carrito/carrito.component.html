@@ -9,10 +9,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let dulce of carrito">
-                    <td> {{dulce.cosa.nombre}}</td>
-                    <td> {{dulce.cosa.tipo}}</td>
-                    <td> {{dulce.cosa.costo}}</td>
+                <tr *ngFor="let dulce of carrito?.pedido">
+                    <td> {{dulce.nombre}}</td>
+                    <td> {{dulce.tipo}}</td>
+                    <td> {{dulce.costo}}</td>
                     <button class="btn" type="button" (click)="eliminar(dulce)">Eliminar</button>
                 </tr>
             </tbody>

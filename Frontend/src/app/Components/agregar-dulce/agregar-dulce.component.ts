@@ -49,7 +49,7 @@ export class AgregarDulceComponent implements OnInit {
               text: 'No se ingreso la categoria!',
             })
           } else {
-            this._inventService.agregar(this.dulce, false);
+            this._inventService.agregar(this.dulce);
             this.dulce = new Dulce;
             this.router.navigateByUrl('./inventario');
 

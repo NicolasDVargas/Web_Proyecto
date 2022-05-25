@@ -39,11 +39,11 @@ class LoadData {
           
             Cliente a = new Cliente("Pablo",bCryptPasswordEncoder.encode("101112"),"jpablo@gmail.com",false, roleUser);
             Cliente b = new Cliente("Diego",bCryptPasswordEncoder.encode("131415"),"dfsanchez@gmail.com",false, roleUser);
-            Cliente c = new Cliente("Nicolas",bCryptPasswordEncoder.encode("12345"),"nicroleto@gmail.com",true, roleUser);
-            Cliente d = new Cliente("Camilo",bCryptPasswordEncoder.encode("6789"),"juank1@gmail.com",true, roleUser);
+            Cliente c = new Cliente("Nicolas",bCryptPasswordEncoder.encode("12345"),"nicroleto@gmail.com",true, roleAdmin);
+            Cliente d = new Cliente("Camilo",bCryptPasswordEncoder.encode("6789"),"juank1@gmail.com",true, roleAdmin);
             Cliente e = new Cliente("Juana",bCryptPasswordEncoder.encode("78910"),"juanitasf2@gmail.com",false, roleUser);
-            Cliente f = new Cliente("Miguel",bCryptPasswordEncoder.encode("55555"),"migueldl@gmail.com",true, roleUser);
-            Cliente g = new Cliente("Sofia",bCryptPasswordEncoder.encode("54321"),"sofisofi@gmail.com",true, roleUser);
+            Cliente f = new Cliente("Miguel",bCryptPasswordEncoder.encode("55555"),"migueldl@gmail.com",true, roleAdmin);
+            Cliente g = new Cliente("Sofia",bCryptPasswordEncoder.encode("54321"),"sofisofi@gmail.com",true, roleAdmin);
             Cliente h = new Cliente("Paul",bCryptPasswordEncoder.encode("8080"),"paulsp8@gmail.com",false, roleUser);
             Cliente i = new Cliente("Laura",bCryptPasswordEncoder.encode("7410"),"lauperez2@gmail.com",false, roleUser);
             Cliente j = new Cliente("Natalia",bCryptPasswordEncoder.encode("8426"),"natadiaz1@gmail.com",false, roleUser);
@@ -109,7 +109,7 @@ class LoadData {
             List<Dulce> lista5 = new ArrayList<Dulce>();
             lista5.add(bo);
             lista5.add(oa);
-            lista5.add(ta);
+            lista5.add(fa);
             lista5.add(ja);
             lista5.add(ha);
 
@@ -179,7 +179,7 @@ class LoadData {
             List<Dulce> listav5 = new ArrayList<Dulce>();
             listav5.add(bo);
             listav5.add(oa);
-            listav5.add(ta);
+            listav5.add(fa);
             listav5.add(ja);
             listav5.add(ha);
             Compra compra5 = new Compra(h, listav5);

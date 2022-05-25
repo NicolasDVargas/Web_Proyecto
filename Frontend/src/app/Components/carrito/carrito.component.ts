@@ -1,11 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DefaultValueAccessor } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dulce } from 'src/app/models/candy.model';
-import { elemento } from 'src/app/models/cliente.model';
+import { cliente, elemento } from 'src/app/models/cliente.model';
 import { ClienteService } from 'src/app/servicios/clientes.service';
 import { InventarioService } from 'src/app/servicios/inventario.service';
 import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-carrito',
@@ -14,16 +16,28 @@ import Swal from 'sweetalert2';
 })
 export class CarritoComponent implements OnInit {
 
-  public carrito:elemento[];
+  public user:cliente;
+  public carrito:any;
   public dulce:elemento = new elemento();
   public total:number;
 
-  constructor(public _clienteService: ClienteService, public route: Router, public _inventService:InventarioService) { 
-    this.carrito=_clienteService.actual.carrito;
-    this.total=this.calcularTotal();
+  constructor(public _clienteService: ClienteService, public route: Router, public _inventService:InventarioService, private http: HttpClient) { 
+  }
+
+  async findCarrito() {
+    let token: any = localStorage.getItem('user');
+    let decodedUser: any = jwt_decode(token);
+    var _urlUser = "http://localhost:8080/Cliente/Buscar/email?email=" + decodedUser.sub;
+    this.user = await (await this.http.get(_urlUser).toPromise()) as cliente
+    var _urlCarrito = "http://localhost:8080/Cliente/Buscar/Carrito?id=" + this.user.id;
+    this.http.get(_urlCarrito).toPromise().then((carrito) => {
+      this.carrito = carrito
+      this.total = this.calcularTotal();
+    })
   }
 
   ngOnInit(): void {
+    this.findCarrito();
   }
 
   eliminar(dulce:elemento){
@@ -36,7 +50,7 @@ export class CarritoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this._clienteService.actual.elimiar(dulce.id);
+        this.user.elimiar(dulce.id);
         this.total=this.calcularTotal();
         Swal.fire(
           'Borrado!',
@@ -57,7 +71,8 @@ export class CarritoComponent implements OnInit {
     }
     else {
       this.moverInvent();
-      this._clienteService.actual.facturar(this.total);
+      let _urlBuy = "http://localhost:8080/Compra/Ingresar?id=" + this.user.id;
+      this.http.put(_urlBuy, this.carrito).subscribe(data => {console.log("ok")});
       Swal.fire(
       'Listo!',
       'Disfruta de tus dulces :D.',
@@ -68,9 +83,9 @@ export class CarritoComponent implements OnInit {
   }
 
   moverInvent(){
-    for(let dulce of this._clienteService.actual.carrito){
-      for(let dulceI of this._inventService.Disponible){
-        if(dulce.cosa.nombre==dulceI.nombre){
+    for(let dulce of this.carrito?.pedido){
+      for(let dulceI of this._inventService.Disponible) {
+        if(dulce.id == dulceI.id){
           dulceI.cantidad--;
           dulceI.vendido++;
         }
@@ -80,8 +95,9 @@ export class CarritoComponent implements OnInit {
 
   calcularTotal(): number {
     var cont = 0;
-    for(let dulce of this._clienteService.actual.carrito){
-      cont=cont+dulce.cosa.costo;
+    console.log(this.carrito)
+    for(let dulce of this.carrito?.pedido){
+      cont += dulce?.costo;
     }
     return cont;
   }

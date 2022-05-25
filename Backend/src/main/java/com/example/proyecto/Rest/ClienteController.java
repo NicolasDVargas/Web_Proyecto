@@ -97,6 +97,12 @@ public class ClienteController {
         return compraDTOs(c.getCarrito());  
     }
 
+    @GetMapping("Buscar/email")
+    public ClienteDTO getEmail( @RequestParam(name = "email") String email){
+        Cliente c = clienteService.buscarPorEmail(email);
+        return convertDTOs(c);  
+    }
+
     @GetMapping("Buscar/facturas")
     public List<CompraDTO> getFacturaas( @RequestParam(name = "id") Long id){
         Cliente c = clienteService.buscarPorId(id);
