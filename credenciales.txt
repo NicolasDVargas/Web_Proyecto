@@ -1,0 +1,18 @@
+Usuarios
+   Contraseña   nombre de usuario
+   
+    "101112"    "jpablo@gmail.com"
+    "131415"   "dfsanchez@gmail.com"
+    "78910"    "juanitasf2@gmail.com"
+    "8080"      "paulsp8@gmail.com"
+    "7410"      "lauperez2@gmail.com"
+    "8426"     "natadiaz1@gmail.com"
+    
+Administradores
+    Contraseña   nombre de usuario
+    
+    "12345"    "nicroleto@gmail.com"
+    "6789"      "juank1@gmail.com"
+    "55555"    "migueldl@gmail.com"
+    "54321"    "sofisofi@gmail.com"
+    
