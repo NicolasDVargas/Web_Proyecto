@@ -13,8 +13,6 @@ export class elemento {
     if(thing){
       this.cosa=thing;
     }
-  
-    
   }
 }
 

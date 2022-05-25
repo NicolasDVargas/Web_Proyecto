@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Administrador } from 'src/app/models/admin.module';
 import { Dulce } from 'src/app/models/candy.model';
-import { cliente } from 'src/app/models/cliente.model';
+import { cliente, elemento } from 'src/app/models/cliente.model';
 import { AdminsService } from 'src/app/servicios/admins.service';
 import { ClienteService } from 'src/app/servicios/clientes.service';
 import { InventarioService } from 'src/app/servicios/inventario.service';
@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 export class DetalleDulceComponent implements OnInit {
 
   public user: cliente
-  public carrito:any
+  public carrito: any
   public dulce: Dulce = new Dulce;
   public cant: number;
 
@@ -59,8 +59,29 @@ export class DetalleDulceComponent implements OnInit {
 
   agregarCarrito() {
     if (this.user != null) {
-      let _urlEdit = "http://localhost:8080/Compra/Editar?id=" + this.carrito.id;
-      Swal.fire('Agregado!','Se ha agregado a tu carrito.','success')
+
+      let newCarrito: Dulce[] = [];
+
+      for (let elemt of this.carrito.pedido) {
+        newCarrito.push(elemt);    
+      }
+
+      newCarrito.push(this.dulce)
+
+      var _urlCarritoCambio = "http://localhost:8080/Cliente/Editar/Carrito?id=" + this.user.id
+      let funciono = this.http.put(_urlCarritoCambio, newCarrito).subscribe(data => { console.log("ok") })
+
+      if (funciono) {
+        Swal.fire('Agregado!', 'Se ha agregado a tu carrito.', 'success')
+        this.findCarrito()
+
+      } else {
+        Swal.fire(
+          'No agregado!',
+          'No sa ha agregado correctamente el dulce a tu carrito.',
+          'warning')
+      }
+     
 
     } else {
       Swal.fire('Debes estar logeado para poder agregar cosas a tu carrito');
@@ -94,10 +115,10 @@ export class DetalleDulceComponent implements OnInit {
     })
   }
 
-  calcularTotal(): void{
+  calcularTotal(): void {
     var cont = 0;
     console.log(this.carrito)
-    for(let dulce of this.carrito?.pedido){
+    for (let dulce of this.carrito?.pedido) {
       cont += dulce?.costo;
     }
     this.carrito.total = cont

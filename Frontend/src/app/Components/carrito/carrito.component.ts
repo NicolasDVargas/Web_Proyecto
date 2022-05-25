@@ -20,6 +20,7 @@ export class CarritoComponent implements OnInit {
   public carrito:any;
   public dulce:elemento = new elemento();
   public total:number;
+  public carritoid:number;
 
   constructor(public _clienteService: ClienteService, public route: Router, public _inventService:InventarioService, private http: HttpClient) { 
   }
@@ -40,7 +41,7 @@ export class CarritoComponent implements OnInit {
     this.findCarrito();
   }
 
-  eliminar(dulce:elemento){
+  eliminar(index1:number){
     Swal.fire({
       title: 'Esta seguro que deseas borrar este dulce de tu carrito?',
       text: 'Piensatelo 2 veces ;)',
@@ -50,13 +51,40 @@ export class CarritoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
-        this.user.elimiar(dulce.id);
+        let otroCarrito : elemento[] = [];
+        let i = 0;
+
+        for(let elemt of this.carrito.pedido){
+          otroCarrito.push(new elemento(i,elemt));
+          i++;
+        }
+
+        otroCarrito.forEach((elemt: elemento,index: any)=>{
+          if(elemt.id==index1) otroCarrito.splice(index,1);
+        });
+
+        let newcarrito : Dulce[]  = []
+        for( let pedido of otroCarrito){
+            newcarrito.push(pedido.cosa)
+        }
+
+        var _urlCarritoCambio = "http://localhost:8080/Cliente/Editar/Carrito?id="+this.user.id
+        let funciono = this.http.put(_urlCarritoCambio, newcarrito).subscribe(data => {console.log("ok")})
+        
         this.total=this.calcularTotal();
-        Swal.fire(
+        if(funciono){
+          Swal.fire(
           'Borrado!',
           'Se ha elimiado correctamente el dulce de tu carrito.',
           'success'
         )
+        this.findCarrito()
+        }else{
+          Swal.fire(
+          'No Borrado!',
+          'No sa ha elimiado correctamente el dulce de tu carrito.',
+          'warning')
+        }
       }
     })
   }
@@ -77,9 +105,19 @@ export class CarritoComponent implements OnInit {
       'Listo!',
       'Disfruta de tus dulces :D.',
       'success'
-    )
-    this.route.navigateByUrl("./home")
+      )
+      debugger
+      this.limpiarCarrito()
+      this.route.navigateByUrl("./home")
     }
+  }
+
+  limpiarCarrito(){
+    debugger;
+    let nuevoCarrito : elemento[] = [];
+    var _urlCarritoCambio = "http://localhost:8080/Cliente/Editar/Carrito?id="+this.user.id
+    let funciono = this.http.put(_urlCarritoCambio, nuevoCarrito).subscribe(data => {console.log("ok")})
+    this.total=this.calcularTotal();
   }
 
   moverInvent(){

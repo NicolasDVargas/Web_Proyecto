@@ -9,11 +9,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let dulce of carrito?.pedido">
+                <tr *ngFor="let dulce of carrito?.pedido, let i = index" >
                     <td> {{dulce.nombre}}</td>
                     <td> {{dulce.tipo}}</td>
                     <td> {{dulce.costo}}</td>
-                    <button class="btn" type="button" (click)="eliminar(dulce)">Eliminar</button>
+                    <button class="btn" type="button" (click)="eliminar(i)">Eliminar</button>
                 </tr>
             </tbody>
             <h2 class="total">Total: {{total}}</h2>
