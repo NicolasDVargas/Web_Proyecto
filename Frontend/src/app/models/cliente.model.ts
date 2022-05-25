@@ -16,6 +16,24 @@ export class elemento {
   }
 }
 
+export class subCliente {
+  nombre:string;
+  contrasenna:string;
+  email:string
+
+  constructor (nombre?:string,contrasenna?:string,email?:string){
+    if(nombre){
+      this.nombre=nombre;
+    }
+    if(contrasenna){
+      this.contrasenna=contrasenna;
+    }
+    if(email){
+      this.email=email;
+    }
+  }
+}
+
 export class cliente {
 
   id:number;
@@ -70,3 +88,4 @@ export class cliente {
     this.carrito=[];
   }
 }
+

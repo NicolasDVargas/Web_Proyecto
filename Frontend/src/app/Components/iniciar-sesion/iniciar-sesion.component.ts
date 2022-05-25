@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Administrador } from 'src/app/models/admin.module';
-import { cliente } from 'src/app/models/cliente.model';
+import { cliente, subCliente } from 'src/app/models/cliente.model';
 import { AdminsService } from 'src/app/servicios/admins.service';
 import { HttpClient } from '@angular/common/http';
 import { ClienteService } from 'src/app/servicios/clientes.service';
@@ -21,7 +21,7 @@ export class IniciarSesionComponent implements OnInit {
 
   private _url = "http://localhost:8080/";
   public clientes: any = [];
-  public Cliente: cliente = new cliente();
+  public Cliente: subCliente = new subCliente();
   public Admin: Administrador = new Administrador();
   public encontrado: boolean = false;
 
@@ -32,7 +32,7 @@ export class IniciarSesionComponent implements OnInit {
 
   async loginUser(dataUser: any) {
     try {
-      let loginR: any = await this.http.post(this._url + "login", dataUser, {responseType: 'text'}).toPromise()
+      let loginR: any = await this.http.post(this._url + "login", dataUser, { responseType: 'text' }).toPromise()
       let user: any = jwt_decode(loginR);
       localStorage.setItem('user', loginR);
       this._clienteService.actual = user;
@@ -62,8 +62,8 @@ export class IniciarSesionComponent implements OnInit {
           text: 'olvidaste llenar la contraseña',
         })
       } else {
-        
-        var dataUser = {"email":correo, "contrasenna":contra};
+
+        var dataUser = { "email": correo, "contrasenna": contra };
         this.loginUser(dataUser);
       }
     }
@@ -76,8 +76,7 @@ export class IniciarSesionComponent implements OnInit {
     localStorage.clear();
   }
 
-  registrar(Cliente: cliente) {
-    var yaExiste: boolean = false;
+  async registrar(Cliente: subCliente) {
     if (Cliente.nombre == null || Cliente.nombre == "") {
       Swal.fire({
         icon: 'error',
@@ -99,47 +98,15 @@ export class IniciarSesionComponent implements OnInit {
             text: 'No se ha ingresado un email valida!',
           })
         } else {
-          for (let cli of this.clientes) {
-            if (cli.nombre == Cliente.nombre) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ese ya existe!',
-              })
-              yaExiste = true;
-
-            }
-          }
-          for (let adm of this.clientes) {
-            if (adm.nombre == Cliente.nombre && adm.contrasenna == Cliente.contrasenna) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ese ya existe!',
-              })
-              yaExiste = true;
-            } else {
-              for (let adm of this._adminsService.administradores) {
-                if (adm.nombre == Cliente.nombre && adm.contrasenna == Cliente.contrasenna) {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Ese ya existe!',
-                  })
-                  yaExiste = true;
-                }
-              }
-            }
-          }
-          if (!yaExiste) {
-            this.Cliente.generarFactura();
-            this._clienteService.agregar(this.Cliente);
-            localStorage.setItem('user', this.Cliente.nombre);
+            try{
+              let _urlIngresar = this._url + "Cliente/Ingresar";
+            await this.http.put<any>(_urlIngresar, Cliente).toPromise()
             Swal.fire('Bienvenido ' + Cliente.nombre, 'El registro a sido exitoso', 'success')
-            this._clienteService.actual = Cliente;
-            this.Cliente = new cliente();
-            this.router.navigateByUrl('./home');
-          }
+            this.loginUser(Cliente)
+            }catch(e){
+              Swal.fire('no funciono','', 'warning')
+            }
+            
         }
       }
     }

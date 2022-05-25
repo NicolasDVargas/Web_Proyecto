@@ -66,8 +66,8 @@ public class ClienteController {
 
 
     @PutMapping("Ingresar")
-    public boolean Agregar(@RequestBody Cliente cliente){
-        return clienteService.agregarCliente(cliente);
+    public void Agregar(@RequestBody Cliente cliente){
+        clienteService.agregarCliente(cliente);
     }
 
     @PutMapping("Editar/Carrito")
